@@ -10,6 +10,8 @@ public class WeatherDetails {
     private long sunset;
     private double temp;
 
+    //Hohohoho
+
     @JsonProperty ("feels_like")
     private double feelsLike;
 
