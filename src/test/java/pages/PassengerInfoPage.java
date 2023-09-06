@@ -1,7 +1,13 @@
 package pages;
 
 import model.ReservationInfo;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.util.List;
 
 public class PassengerInfoPage {
     private final By NAME_INPUT = By.id("name");
@@ -13,6 +19,8 @@ public class PassengerInfoPage {
     private final By NEXT_FLIGHT = By.id("flight");
     private final By GET_PRICE_LINK = By.xpath(".//span[@onclick = 'setLang();']");
     private final By BOOK_LINK = By.id("book2");
+    private final By FLIGHT_INFO = By.xpath(".//span[@class='bTxt']");
+
 
 
     private BaseFunc baseFunc;
@@ -22,25 +30,43 @@ public class PassengerInfoPage {
     }
 
     public void fillInPassengerInfo(ReservationInfo reservationInfo) {
-        baseFunc.type(NAME_INPUT,reservationInfo.getFirstName());
-        baseFunc.type(SURNAME_INPUT,reservationInfo.getLastName());
-        baseFunc.type(DISCOUNT_CODE_INPUT,reservationInfo.getDiscount());
-        baseFunc.type(ADULTS_COUNT_INPUT,reservationInfo.getPassengerCount());
-        baseFunc.type(CHILDREN_COUNT_INPUT,reservationInfo.getChildCount());
-        baseFunc.type(LUGGAGE_COUNT_INPUT,reservationInfo.getBagsCount());
+        baseFunc.type(NAME_INPUT, reservationInfo.getFirstName());
+        baseFunc.type(SURNAME_INPUT, reservationInfo.getLastName());
+        baseFunc.type(DISCOUNT_CODE_INPUT, reservationInfo.getDiscount());
+        baseFunc.type(ADULTS_COUNT_INPUT, reservationInfo.getPassengerCount());
+        baseFunc.type(CHILDREN_COUNT_INPUT, reservationInfo.getChildCount());
+        baseFunc.type(LUGGAGE_COUNT_INPUT, reservationInfo.getBagsCount());
         baseFunc.selectByText(NEXT_FLIGHT, reservationInfo.getFlightDate());
 
     }
-    public void clickGetPrice() {baseFunc.click(GET_PRICE_LINK);}
 
-    public void clickBook() {baseFunc.click(BOOK_LINK);}
+    public void clickGetPrice() {
+        baseFunc.click(GET_PRICE_LINK);
+    }
 
-    public String getDepartureAirport() {
-        String airport = "";
-        //Finding element by locator
-        //getting text
-        return airport;
+    public void clickBook() {
+        baseFunc.click(BOOK_LINK);
+    }
+
+    public void waitElements () { baseFunc.wait(flightInfo);}
+
+ List <WebElement> flightInfo = baseFunc.findElements(FLIGHT_INFO);
+
+   public String getDepartureAirport() {
+       String airoport = flightInfo.get(3).getText();
+        return airoport;
+    }
+   public String getArrivalAirport() {
+      String airoport = flightInfo.get(4).getText();
+       return airoport;
     }
 
 
+
+
+
+
 }
+
+
+
