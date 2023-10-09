@@ -1,19 +1,14 @@
+import model.ticket.FlightInfo;
+import model.ticket.Passenger;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebElement;
-import pages.BaseFunc;
-import pages.HomePage;
-import pages.PassengerInfoPage;
-import pages.SeatSelectionPage;
-import model.ReservationInfo;
+import pages.*;
 import org.junit.jupiter.api.Test;
 
 public class TicketsTestsOnPages {
     private final String URL = "www.qaguru.lv:8089/tickets";
-    private final String DEPARTURE_AIRPORT = "RIX";
-    private final String ARRIVAL_AIRPORT = "MEL";
-    private int seatNr = 28;
-    private ReservationInfo info = new ReservationInfo("Victoria", "Maksimova", "36352", 2, 1, 0, "15-05-2018");
-
+    private Passenger passenger = new Passenger("Victoria", "Maksimova");
+    private FlightInfo flight = new FlightInfo("RIX", "MEL", "36352", 2, 1,
+            0, "15-05-2018", 28);
 
     @Test
     public void successTicketBookCheck() {
@@ -21,25 +16,29 @@ public class TicketsTestsOnPages {
         baseFunc.openUrl(URL);
 
         HomePage homePage = new HomePage(baseFunc);
-        homePage.selectDepartureAirport(DEPARTURE_AIRPORT);
-        homePage.selectArrivalAirport(ARRIVAL_AIRPORT);
+        homePage.selectDepartureAirport(flight.getDeparture());
+        homePage.selectArrivalAirport(flight.getArrival());
         homePage.clickGoGoGoBtn();
 
         PassengerInfoPage infoPage = new PassengerInfoPage(baseFunc);
-        infoPage.fillInPassengerInfo(info);
+        infoPage.fillInPassengerInfo(flight, passenger);
         infoPage.clickGetPrice();
         infoPage.clickBook();
 
-        SeatSelectionPage seatSelectionPage = new SeatSelectionPage((baseFunc));
-        seatSelectionPage.selectSeat(seatNr);
+        Assertions.assertEquals(flight.getDeparture(), infoPage.getDepartureAirport(), "Wrong Departure Airport!");
+        Assertions.assertEquals(flight.getArrival(), infoPage.getArrivalAirport(), "Wrong Arrival Airport!");
+        Assertions.assertEquals(passenger.getFirstName(), infoPage.FirstName().substring(0, infoPage.FirstName().length()-1), "Wrong name");
+        Assertions.assertEquals(flight.getDeparture(), infoPage.getDeparture(), "Wrong Departure Airport!");
+        Assertions.assertEquals(flight.getArrival(), infoPage.getArrival(), "Wrong Arrival Airport!");
 
+        SeatSelectionPage seatSelectionPage = new SeatSelectionPage(baseFunc);
+        seatSelectionPage.selectSeat(flight.getSeatNr());
 
-        Assertions.assertEquals(DEPARTURE_AIRPORT, infoPage.getDepartureAirport(), "Wrong Departure Airoport!");
+        Assertions.assertEquals(seatSelectionPage.checkSeatLink(), "Your seat is: 28", "Incorrect Seat Number!");
 
-        Assertions.assertEquals(ARRIVAL_AIRPORT, infoPage.getArrivalAirport(), "Wrong Arrival Airoport!");
+        BookPage bookPage = new BookPage(baseFunc);
+        bookPage.clickBookLink();
 
-
+        Assertions.assertTrue(bookPage.getMessage(), "Registration message failed");
     }
-
-
 }

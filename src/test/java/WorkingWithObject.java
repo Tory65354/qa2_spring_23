@@ -1,10 +1,9 @@
-import model.Auto;
-import model.Film;
-import model.Student;
+import model.other.Auto;
+import model.other.Film;
+import model.other.Student;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.sql.SQLOutput;
 
 public class WorkingWithObject {
     @Test

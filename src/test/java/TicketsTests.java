@@ -28,7 +28,7 @@ public class TicketsTests {
     private final By BOOK_LINK = By.id("book2");
     //private final By SEAT_LINK = By.
     private final By FlIGHT_INFO = By.xpath(".//span[@class = 'bTxt']");
-    private final By SEAT_LINK = By.id ("book");
+    private final By SEAT_LINK = By.id("book");
 
 
     private final String URL = "http://www.qaguru.lv:8089/tickets";
@@ -57,9 +57,6 @@ public class TicketsTests {
         toSelect.selectByValue(ARRIVAL_AIRPORT);
 
         browser.findElement(GO_BTN).click();
-
-
-
 
 
         WebElement nameInputField = browser.findElement(NAME_INPUT);
@@ -92,31 +89,26 @@ public class TicketsTests {
 
         browser.findElement(GET_PRICE_LIMK).click();
 
-        WebDriverWait wait = new WebDriverWait(browser,Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(browser, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.numberOfElementsToBe(FlIGHT_INFO, 5));
 
         List<WebElement> flightInfo = browser.findElements(FlIGHT_INFO);
-        Assertions.assertEquals(DEPARTURE_AIRPORT,flightInfo.get(0).getText(), "Wrong departure airoport!");
-        Assertions.assertEquals(ARRIVAL_AIRPORT, flightInfo.get(1).getText(), "Wrong arrival airoport!");
+        Assertions.assertEquals(DEPARTURE_AIRPORT, flightInfo.get(0).getText(), "Wrong departure airport!");
+        Assertions.assertEquals(ARRIVAL_AIRPORT, flightInfo.get(1).getText(), "Wrong arrival airport!");
 
         String name = flightInfo.get(2).getText();
-        Assertions.assertEquals(NAME, name.substring(0, name.length() -1), "Wrong name");
-
-        Assertions.assertEquals(DEPARTURE_AIRPORT,flightInfo.get(3).getText(), "ERROR2 Wrong departure airoport!");
-        Assertions.assertEquals(ARRIVAL_AIRPORT, flightInfo.get(4).getText(), "ERROR2 Wrong arrival airoport!");
+        Assertions.assertEquals(NAME, name.substring(0, name.length() - 1), "Wrong name");
+        Assertions.assertEquals(DEPARTURE_AIRPORT, flightInfo.get(3).getText(), "ERROR2 Wrong departure airport!");
+        Assertions.assertEquals(ARRIVAL_AIRPORT, flightInfo.get(4).getText(), "ERROR2 Wrong arrival airport!");
 
         browser.findElement(BOOK_LINK).click();
 
-       //List<WebElement> seat = browser.findElements(SEAT_LINK);
-       //Select seat = new Select(seat);
-       //seat.get(25);
+        //List<WebElement> seat = browser.findElements(SEAT_LINK);
+        //Select seat = new Select(seat);
+        //seat.get(25);
 
 
         //browser.findElement(SEAT_LINK).click();
-
-
-
-
 
 
     }

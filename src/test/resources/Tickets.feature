@@ -6,8 +6,8 @@ Feature: Air Ticket Booking
       | to   | JFC |
 
     And passenger info is:
-      | first_name | Victoria  |
-      | last_name  | Maksimova |
+      | first_name | random |
+      | last_name  | random |
 
     And flight info is:
       | discount        | fffff      |

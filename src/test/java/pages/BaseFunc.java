@@ -63,8 +63,10 @@ public class BaseFunc {
 
     public void waitForElementsCountToBeAtLeast(By locator, int minCount) {
         wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(locator, minCount));
-
     }
 
-
+    public List<WebElement> waitForNumbersOfElementsToBe(By locator, int count) {
+        return wait.until(ExpectedConditions.numberOfElementsToBe(locator, count));
+    }
 }
+

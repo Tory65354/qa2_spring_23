@@ -7,16 +7,18 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class SeatSelectionPage {
-    private final By SEAT_LINK = By.xpath (".//div[@class = 'seat']");
+    private final By SEAT_LINK = By.xpath(".//div[@class = 'seat']");
     private BaseFunc baseFunc;
+    private final By SEAT_CHECK = By.xpath(".//div[@class = 'line']");
 
     public SeatSelectionPage(BaseFunc baseFunc) {
         this.baseFunc = baseFunc;
     }
+
     public void selectSeat(int seatNr) {
         baseFunc.waitForElementsCountToBeAtLeast(SEAT_LINK, 15);
 
-        List <WebElement> seats = baseFunc.findElements(SEAT_LINK);
+        List<WebElement> seats = baseFunc.findElements(SEAT_LINK);
 
         Assertions.assertFalse(seats.isEmpty(), "There is no seats at all");
         boolean isSeatFound = false;
@@ -27,7 +29,12 @@ public class SeatSelectionPage {
                 break;
             }
         }
-        Assertions.assertTrue(isSeatFound, "seat Nr" + seatNr + "is not found!");
 
+        Assertions.assertTrue(isSeatFound, "seat Nr" + seatNr + "is not found!");
+    }
+
+    public String checkSeatLink() {
+        return baseFunc.findElement(SEAT_CHECK).getText();
     }
 }
+

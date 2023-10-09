@@ -1,4 +1,4 @@
-package model;
+package model.other;
 
 public class Transport {
     private String transportName;

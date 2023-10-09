@@ -1,5 +1,5 @@
 
-import model.Transport;
+import model.other.Transport;
 import org.junit.jupiter.api.Test;
 
 public class StarWorkingWithObject {
